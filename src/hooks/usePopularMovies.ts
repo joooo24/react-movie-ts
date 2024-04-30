@@ -5,7 +5,7 @@ type MovieData = any;
 
 const fetchPopularMovies = async (): Promise<MovieData> => {
     const response = await api.get<MovieData>("/movie/popular");
-    return response.data;
+    return response;
 };
 
 export const usePopularMoviesQuery = () => {
