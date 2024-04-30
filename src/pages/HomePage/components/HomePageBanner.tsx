@@ -5,7 +5,7 @@ import { Alert } from "react-bootstrap";
 const HomePageBanner: React.FC = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
-    console.log("### data", data)
+    console.log("### usePopularMoviesQuery data", data)
 
     // 로딩 상태
     if (isLoading) {

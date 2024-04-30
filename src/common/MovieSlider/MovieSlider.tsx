@@ -37,7 +37,7 @@ const MovieSlider: React.FC<MovieSliderProps> = ({ data, title }) => {
 
     return (
         <div className="movie-slider-container">
-            <h3 className="">{title}</h3>
+            <h3 className="">타이틀</h3>
             <Carousel
                 infinite={true}
                 centerMode={true}
