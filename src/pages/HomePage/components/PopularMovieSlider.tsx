@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-const PopularMovieSlider = (props: Props) => {
+const PopularMovieSlider: React.FC = () => {
   return (
     <div>PopularMovieSlider</div>
   )
