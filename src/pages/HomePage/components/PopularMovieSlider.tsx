@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
+import { usePopularMoviesQuery } from "../../../hooks/usePopularMovies";
+import MovieSlider from "../../../common/MovieSlider/MovieSlider";
+import { Alert } from "react-bootstrap";
 
 const PopularMovieSlider: React.FC = () => {
-  return (
-    <div>PopularMovieSlider</div>
-  )
-}
+    const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
-export default PopularMovieSlider
+    if (isLoading) {
+        return <div>로딩 중...</div>;
+    }
+
+    if (isError) {
+        return <Alert variant="danger">{error.message}</Alert>;
+    }
+
+    return <MovieSlider title={"Popular Movie"} data={data}></MovieSlider>;
+};
+
+export default PopularMovieSlider;

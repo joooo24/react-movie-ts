@@ -3,6 +3,11 @@ import api from "../utils/api";
 
 type MovieData = any;
 
+export interface Genre {
+    id: number;
+    name: string;
+}
+
 const fetchMoviesGenre = async (): Promise<MovieData> => {
     const response = await api.get<MovieData>(`/genre/movie/list`);
     return response;
