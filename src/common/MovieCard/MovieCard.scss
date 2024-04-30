@@ -1,0 +1,121 @@
+// 컨테이너 사용할 경우 (ex 추천영화)
+.movie-card-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .movie-card {
+        width: calc((100% - 40px) / 3);
+        padding-top: calc(((100% - 40px) / 3)* 1.5);
+        margin-right: 20px;
+        margin-bottom: 20px;
+
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+}
+
+// 기본
+.movie-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-top: 150%;
+    background-size: cover;
+    transition: .5s;
+    color: #f1f1f1;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+
+
+    &:hover {
+        transform: scale(1.1) translateZ(10px);
+        z-index: 2;
+    }
+
+    .overlay {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(43, 41, 41, 0.9);
+        opacity: .9;
+        transition: all 1s;
+        color: #f1f1f1;
+        font-weight: bold;
+        overflow-wrap: break-word;
+        padding: 20px;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+
+        h1 {
+            font-size: 24px;
+        }
+
+        .badge {
+
+            font-size: 10px;
+            margin-right: 6px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        div {
+            font-size: 12px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+
+}
+
+@media only screen and (max-width: 768px) {
+
+    // 기본
+    .movie-card {
+        .overlay {
+            h1 {
+                font-size: 16px;
+            }
+
+            .badge {
+
+                font-size: 10px;
+            }
+
+            div {
+                font-size: 12px;
+            }
+
+        }
+
+    }
+
+    // 컨테이너 사용할 경우 (ex 추천영화)
+    .movie-card-container {
+        padding: 0 20px;
+        .movie-card {
+            width: calc((100% - 20px) / 2);
+            padding-top: calc(((100% - 20px) / 2)* 1.5);
+
+            &:nth-child(3n) {
+                margin-right: 20px;
+            }
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+
+
+    }
+}
