@@ -1,5 +1,6 @@
 // MovieCard.tsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./MovieCard.scss";
 import { useMoviesGenreQuery } from "./../../hooks/useMovieGenre";
 import { Alert } from "react-bootstrap";
@@ -26,17 +27,21 @@ interface Genre {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+    // 뮤비카드 클릭 시 id값으로 URL 이동
+    const navigate = useNavigate();
+    const handleMovieCard = () => {
+        const url = `/movies/${movie.id}`;
+        navigate(url);
+    };
+
     // 배경
     const getBackgroundImageUrl = (posterPath: string | null) => {
         return posterPath ? `https://media.themoviedb.org/t/p/w600_and_h900_bestv2${posterPath}` : "";
     };
 
-    
     // 장르
     const { data: genreData, isLoading, isError, error } = useMoviesGenreQuery();
 
-    console.log("### movie-card useMoviesGenreQuery data", genreData);
-    
     const getGenreName = (genreId: number): string => {
         const foundGenre = genreData.find((genre: Genre) => genre.id === genreId);
         return foundGenre ? foundGenre.name : "";
@@ -52,6 +57,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
     return (
         <div
+            onClick={handleMovieCard}
             className="movie-card"
             style={{
                 backgroundImage: `url(${getBackgroundImageUrl(movie.poster_path)})`,
