@@ -5,12 +5,13 @@ import MovieCard from "../MovieCard/MovieCard";
 
 interface Movie {
     id: number;
-    poster_path: string | null;
     title: string;
+    poster_path: string | null;
     genre_ids: number[];
     vote_average: number;
     popularity: number;
     adult: boolean;
+    release_date: string;
     [key: string]: any; // 나머지 필드에 대한 임의의 속성
 }
 

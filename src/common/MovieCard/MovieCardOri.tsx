@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import "./MovieCard.scss";
-import { useMoviesGenreQuery, Genre } from "../../hooks/useMovieGenre";
+// import { useMoviesGenreQuery, Genre } from "../../hooks/useMovieGenre";
+import { useMoviesGenreQuery } from "../../hooks/useMovieGenre";
 
 interface Movie {
     id: number;
@@ -37,15 +38,15 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
 
     // 장르 정의
     const { data: genreData } = useMoviesGenreQuery();
-    const showGenre = (genreIdList: number[]): string[] => {
-        if (!genreData) return [];
-        const genreNameList = genreIdList?.map((id) => {
-            const genreObj = genreData.find((genre: Genre) => genre.id === id);
-            return genreObj.name;
-        });
+    // const showGenre = (genreIdList: number[]): string[] => {
+    //     if (!genreData) return [];
+    //     const genreNameList = genreIdList?.map((id) => {
+    //         const genreObj = genreData.find((genre: Genre) => genre.id === id);
+    //         return genreObj.name;
+    //     });
 
-        return genreNameList;
-    };
+    //     return genreNameList;
+    // };
 
     return (
         <div
@@ -57,11 +58,11 @@ const MovieCard: React.FC<Props> = ({ movie }) => {
         >
             <div className="overlay">
                 <h1>{movie.title}</h1>
-                {showGenre(movie.genre_ids).map((genre, index) => (
+                {/* {showGenre(movie.genre_ids).map((genre, index) => (
                     <Badge bg="danger" key={index}>
                         {genre}
                     </Badge>
-                ))}
+                ))} */}
                 <div>{movie.vote_average}점</div>
                 <div>인기: {movie.popularity}</div>
                 <div>{movie.adult ? "over18" : ""}</div>
