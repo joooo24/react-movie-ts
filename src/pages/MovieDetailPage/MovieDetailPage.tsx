@@ -1,8 +1,6 @@
 import React from 'react'
 
-type Props = {}
-
-const MovieDetailPage = (props: Props) => {
+const MovieDetailPage = () => {
     return (
         <div>MovieDetailPage</div>
     )

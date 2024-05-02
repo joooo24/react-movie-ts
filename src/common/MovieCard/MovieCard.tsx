@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./MovieCard.scss";
 import { useMoviesGenreQuery } from "./../../hooks/useMovieGenre";
 import { Alert } from "react-bootstrap";
+import { ClipLoader } from "react-spinners";
 
 interface Movie {
     id: number;
@@ -48,7 +49,11 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     };
 
     if (isLoading) {
-        return <div>로딩 중...</div>;
+        return (
+            <div className="loading-container">
+                <ClipLoader color="#f86c6b" size={200} loading={isLoading} />
+            </div>
+        );
     }
 
     if (isError) {

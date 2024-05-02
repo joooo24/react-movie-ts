@@ -1,15 +1,20 @@
 import React from "react";
 import { usePopularMoviesQuery } from "../../../hooks/usePopularMovies";
 import { Alert } from "react-bootstrap";
+import { ClipLoader } from "react-spinners";
 
 const HomePageBanner: React.FC = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
-    console.log("### homepage-banner usePopularMoviesQuery data", data)
+    console.log("### homepage-banner usePopularMoviesQuery data", data);
 
     // 로딩 상태
     if (isLoading) {
-        return <div>로딩 중...</div>;
+        return (
+            <div className="loading-container">
+                <ClipLoader color="#f86c6b" size={200} loading={isLoading} />
+            </div>
+        );
     }
 
     // 에러 상태
