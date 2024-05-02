@@ -78,6 +78,91 @@
 
 }
 
+// 태그
+.badge-wrap {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    li {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 4px;
+        background-color: dodgerblue;
+        margin-right: 6px;
+        margin-bottom: 3px;
+        font-size: 10px;
+        border-radius: 8px;
+        color: #f1f1f1;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.tag-wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .adult,
+        .all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 700;
+            width: 24px;
+            height: 24px;
+        }
+
+        .adult {
+            background-color: red;
+            color: #f1f1f1;
+        }
+
+        .all {
+            background-color: yellow;
+            color: #181818;
+        }
+    }
+}
+
+.tab-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px !important;
+    margin-top: 120px;
+
+    li {
+
+        font-size: 28px;
+        padding: 0 40px 20px;
+
+        &.active,
+        &:hover {
+            font-weight: bold;
+            color: brown;
+        }
+    }
+}
+
 @media only screen and (max-width: 768px) {
 
     // 기본
@@ -103,6 +188,7 @@
     // 컨테이너 사용할 경우 (ex 추천영화)
     .movie-card-container {
         padding: 0 20px;
+
         .movie-card {
             width: calc((100% - 20px) / 2);
             padding-top: calc(((100% - 20px) / 2)* 1.5);
@@ -117,5 +203,16 @@
         }
 
 
+    }
+
+    // 태그
+    .tab-wrap {
+        margin-top: 100px;
+
+        li {
+            font-size: 22px;
+            padding: 0 20px 10px;
+            font-size: 20px;
+        }
     }
 }

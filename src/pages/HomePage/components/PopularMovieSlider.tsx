@@ -13,8 +13,7 @@ const PopularMovieSlider: React.FC = () => {
     if (isError) {
         return <Alert variant="danger">{error.message}</Alert>;
     }
-
-    return <MovieSlider title={"Popular Movie"} data={data}></MovieSlider>;
+    return <MovieSlider  data={data} title={"Popular Movie"}></MovieSlider>;
 };
 
 export default PopularMovieSlider;
