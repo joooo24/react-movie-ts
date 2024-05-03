@@ -1,12 +1,36 @@
 import React, { useState } from "react";
 import "./MovieDetailPage.scss";
-// import { useParams } from "react-router-dom";
-// import { useMovieDetailQuery, MovieDetailData } from "../../hooks/useMovieDetailQuery"; // assuming useMovieDetailQuery returns MovieDetailData type
+import { useParams } from "react-router-dom";
+import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
+import { Alert } from "react-bootstrap";
+import { ClipLoader } from "react-spinners";
+
 // import ReviewContent from "./components/ReviewContent/ReviewContent";
 // import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 // import { MovieModal } from "../../common/MovieModal/MovieModal";
 
 const MovieDetailPage: React.FC = () => {
+
+    const params = useParams();
+    const keyword = params.id ?? "";
+
+    const { data: detailData, isLoading, isError, error } = useMovieDetailQuery(keyword);
+    console.log("### detailData", detailData)
+
+    if (isLoading) {
+        return (
+            <div className="loading-container">
+                <ClipLoader color="#f86c6b" size={200} loading={isLoading} />
+            </div>
+        );
+    }
+
+    if (isError) {
+        return <Alert variant="danger">{error.message}</Alert>;
+    }
+
+
+
     return (
         <section className="movie-detail-page">
             <article className="movie-information">
@@ -23,44 +47,41 @@ const MovieDetailPage: React.FC = () => {
                             <li key={index}>{item.name}</li>
                         ))} */}
                     </ul>
-                    <div className="title">title</div>
-                    <div className="title-sub">tagline</div>
+                    <div className="title">{detailData.title}</div>
+                    <div className="title-sub">{detailData.tagline}</div>
                     <ul className="tag-wrap">
                         <li className="">
                             <i></i>
-                            vote_average점
+                            {detailData.vote_average}점
                         </li>
                         <li className="">
-                            <i></i>
-                            {/* {data?.popularity} */}
-                            popularity
+                            {detailData.popularity}
                         </li>
                         <li>
-                            runtime
-                            {/* {data.adult ? (
+                            {detailData.adult ? (
                                 <div className="adult">18</div>
                             ) : (
                                 <div className="all">ALL</div>
-                            )} */}
+                            )}
                         </li>
                     </ul>
-                    <div className="summary">overview</div>
+                    <div className="summary">{detailData.overview}</div>
                     <ul className="bullet-wrap">
                         <li className="bullet">
                             <p>Budget</p>
-                            <p>budget</p>
+                            <p>{detailData.budget}</p>
                         </li>
                         <li className="bullet">
                             <p>Revenue</p>
-                            <p>revenue</p>
+                            <p>{detailData.revenue}</p>
                         </li>
                         <li className="bullet">
                             <p>Release Date</p>
-                            <p>release_date</p>
+                            <p>{detailData.release_date}</p>
                         </li>
                         <li className="bullet">
                             <p>Run Time</p>
-                            <p>runtime분</p>
+                            <p>{detailData.runtime}분</p>
                         </li>
                     </ul>
 

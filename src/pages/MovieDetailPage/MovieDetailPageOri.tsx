@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import "./MovieDetailPage.scss";
 import { useParams } from "react-router-dom";
-import { useMovieDetailQuery } from "../../hooks/useMovieDetailQuery"; // assuming useMovieDetailQuery returns MovieDetailData type
+import { useMovieDetailQuery } from "../../hooks/useMovieDetail"; // assuming useMovieDetailQuery returns MovieDetailData type
 // import ReviewContent from "./components/ReviewContent/ReviewContent";
 // import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 // import { MovieModal } from "../../common/MovieModal/MovieModal";
 
 const MovieDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>(); // Specify useParams type
-    const { data, isLoading, isError } = useMovieDetailQuery(id);
+    // const { data, isLoading, isError } = useMovieDetailQuery(id);
 
-    console.log("### detail data", data);
+    // console.log("### detail data", data);
 
     // 예산 단위 변경
     const formatter = new Intl.NumberFormat("en-US", {
@@ -22,20 +22,20 @@ const MovieDetailPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<number>(0);
 
     // 모달 상태 값
-    const [showModal, setShowModal] = useState<boolean>(false);
-    const closeModal = () => setShowModal(false);
+    // const [showModal, setShowModal] = useState<boolean>(false);
+    // const closeModal = () => setShowModal(false);
 
     // 정렬 상태 값
-    const [sort, setSort] = useState<string>("");
-    const [genre, setGenre] = useState<string | null>(null);
+    // const [sort, setSort] = useState<string>("");
+    // const [genre, setGenre] = useState<string | null>(null);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    // if (isLoading) {
+    //     return <div>Loading...</div>;
+    // }
 
-    if (isError) {
-        return <div>Error fetching data...</div>;
-    }
+    // if (isError) {
+    //     return <div>Error fetching data...</div>;
+    // }
 
     return (
         <section className="movie-detail-page">
