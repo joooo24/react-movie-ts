@@ -5,7 +5,7 @@ import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 
 const PopularMovieSlider: React.FC = () => {
-    const { data, isLoading, isError, error } = usePopularMoviesQuery();
+    const { data: PopularData, isLoading, isError, error } = usePopularMoviesQuery();
 
     if (isLoading) {
         return (
@@ -18,7 +18,8 @@ const PopularMovieSlider: React.FC = () => {
     if (isError) {
         return <Alert variant="danger">{error.message}</Alert>;
     }
-    return <MovieSlider data={data} title={"Popular Movie"}></MovieSlider>;
+    
+    return <MovieSlider data={PopularData} title={"Popular Movie⭐"}></MovieSlider>;
 };
 
 export default PopularMovieSlider;
