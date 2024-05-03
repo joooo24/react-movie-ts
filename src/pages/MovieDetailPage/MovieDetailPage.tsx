@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
+import { FaStar } from "react-icons/fa";
 
 // import ReviewContent from "./components/ReviewContent/ReviewContent";
 // import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
@@ -55,6 +56,7 @@ const MovieDetailPage: React.FC = () => {
                             {detailData.vote_average}점
                         </li>
                         <li className="">
+                            <FaStar/>
                             {detailData.popularity}
                         </li>
                         <li>
