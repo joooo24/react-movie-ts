@@ -26,7 +26,7 @@ interface MovieSliderProps {
 const MovieSlider: React.FC<MovieSliderProps> = ({ data, title }) => {
     return (
         <div className="movie-slider-container">
-            <h3>{title}</h3>
+            <h3 className="dm-serif-display-regular">{title}</h3>
             <Carousel
                 infinite={true}
                 centerMode={true}
