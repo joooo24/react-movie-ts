@@ -19,8 +19,8 @@ const AppLayout = (props: Props) => {
                 <Container fluid>
                     <Navbar.Brand href="/">
                         <img
-                            src="https://image.tving.com/ntgs/operation/logo/2023/09/18/1695032536_1.svg"
-                            alt="tving-logo"
+                            src="/JVING_logo.png"
+                            alt="jving-logo"
                         />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
