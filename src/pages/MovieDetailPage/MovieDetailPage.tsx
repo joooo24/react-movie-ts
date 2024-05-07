@@ -60,7 +60,7 @@ const MovieDetailPage: React.FC = () => {
                 </div>
                 <div className="details">
                     <ul className="badge-wrap">
-                        {detailData.genres.map((item: any, index: number) => (
+                        {detailData.genres.map((item: { name: string }, index: number) => (
                             <li key={index}>{item.name}</li>
                         ))}
                     </ul>
