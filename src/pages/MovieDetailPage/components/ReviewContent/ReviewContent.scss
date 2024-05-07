@@ -3,6 +3,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+  background-color: #181818;
 
   .review-card {
     width: 100%;
@@ -26,14 +27,31 @@
       }
     }
 
+    .review-author {
+      font-size: 12px;
+    }
+
+    .review-content {
+      font-size: 14px;
+      letter-spacing: -.5px;
+    }
+
+    .review-created {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .review-url {
+      font-size: 12px;
+      cursor: pointer;
+    }
+
     .btn-more {
       text-decoration: underline;
       cursor: pointer;
       color: blue;
     }
   }
-
-
 }
 
 
@@ -41,5 +59,6 @@
 
   .review-card-container {
     padding: 0 20px !important;
+    margin-bottom: 0;
   }
 }
