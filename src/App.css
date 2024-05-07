@@ -23,18 +23,20 @@
     font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: normal;
-    letter-spacing: -.5px;
+    letter-spacing: 0px;
   }
   
   .dm-serif-display-regular-italic {
     font-family: "DM Serif Display", serif;
     font-weight: 400;
     font-style: italic;
+    letter-spacing: 0px;
   }
   
   .black-han-sans-regular {
     font-family: "Black Han Sans", sans-serif;
     font-weight: 400;
     font-style: normal;
+    letter-spacing: 0px;
   }
   
