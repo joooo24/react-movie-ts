@@ -114,6 +114,9 @@
         align-items: center;
         justify-content: center;
         margin-right: 10px;
+        svg{
+            margin-right: 3px;
+        }
 
         &:last-child {
             margin-right: 0;

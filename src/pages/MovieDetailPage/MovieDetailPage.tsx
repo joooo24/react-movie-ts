@@ -5,6 +5,8 @@ import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { FaStar } from "react-icons/fa";
+import { ImYoutube } from "react-icons/im";
+import { HiHandThumbUp } from "react-icons/hi2";
 
 // import ReviewContent from "./components/ReviewContent/ReviewContent";
 // import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
@@ -17,6 +19,18 @@ const MovieDetailPage: React.FC = () => {
 
     const { data: detailData, isLoading, isError, error } = useMovieDetailQuery(keyword);
     console.log("### detailData", detailData)
+
+    // 예산 단위 변경
+    // 미국($)
+    const formatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+    });
+    // 한국(원)
+    // const formatter = new Intl.NumberFormat("ko-KR", {
+    //     style: "currency",
+    //     currency: "KRW",
+    // });
 
     if (isLoading) {
         return (
@@ -51,12 +65,12 @@ const MovieDetailPage: React.FC = () => {
                     <div className="title">{detailData.title}</div>
                     <div className="title-sub">{detailData.tagline}</div>
                     <ul className="tag-wrap">
-                        <li className="">
-                            <i></i>
+                        <li>
+                            <FaStar />
                             {detailData.vote_average}점
                         </li>
-                        <li className="">
-                            <FaStar/>
+                        <li>
+                            <HiHandThumbUp />
                             {detailData.popularity}
                         </li>
                         <li>
@@ -71,11 +85,11 @@ const MovieDetailPage: React.FC = () => {
                     <ul className="bullet-wrap">
                         <li className="bullet">
                             <p>Budget</p>
-                            <p>{detailData.budget}</p>
+                            <p>{formatter.format(detailData.budget)}</p>
                         </li>
                         <li className="bullet">
                             <p>Revenue</p>
-                            <p>{detailData.revenue}</p>
+                            <p>{formatter.format(detailData.revenue)}</p>
                         </li>
                         <li className="bullet">
                             <p>Release Date</p>
@@ -90,7 +104,7 @@ const MovieDetailPage: React.FC = () => {
                     <button
                         className="btn-trailer"
                     >
-                        Watch the trailer
+                        Watch the trailer<ImYoutube />
                     </button>
                 </div>
             </article>
