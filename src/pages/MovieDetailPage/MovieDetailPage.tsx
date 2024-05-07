@@ -20,6 +20,11 @@ const MovieDetailPage: React.FC = () => {
     const { data: detailData, isLoading, isError, error } = useMovieDetailQuery(keyword);
     console.log("### detailData", detailData)
 
+    // 카드 이미지 URL 정의
+    const posterPath = detailData?.poster_path
+        ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${detailData.poster_path}`
+        : '';
+
     // 예산 단위 변경
     // 미국($)
     const formatter = new Intl.NumberFormat("en-US", {
@@ -44,23 +49,20 @@ const MovieDetailPage: React.FC = () => {
         return <Alert variant="danger">{error.message}</Alert>;
     }
 
-
-
     return (
         <section className="movie-detail-page">
             <article className="movie-information">
                 <div className="poster">
-                    {/* <img
-                        src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${data?.poster_path}`}
+                    <img
+                        src={posterPath}
                         alt="poster"
-                    /> */}
+                    />
                 </div>
                 <div className="details">
                     <ul className="badge-wrap">
-                        장르
-                        {/* {data.genres.map((item, index) => (
+                        {detailData.genres.map((item: any, index: number) => (
                             <li key={index}>{item.name}</li>
-                        ))} */}
+                        ))}
                     </ul>
                     <div className="title">{detailData.title}</div>
                     <div className="title-sub">{detailData.tagline}</div>
