@@ -13,6 +13,17 @@ const ReviewContent: React.FC<ReviewContentProps> = ({ id }) => {
     const { data: reviewData, isLoading, isError, error } = useMovieReviewQuery({ id });
     console.log("reviewData", reviewData);
 
+    // 각 리뷰 항목의 토글 상태 배열
+    const [toggleStates, setToggleStates] = useState<boolean[]>(Array(reviewData?.length).fill(false));
+
+    // 각 리뷰 항목의 토글 상태 변경 함수
+    const toggleReview = (index: number) => {
+        const newToggleStates = [...toggleStates];
+        newToggleStates[index] = !newToggleStates[index];
+        setToggleStates(newToggleStates);
+    };
+
+    // setShowMore()
     // 날짜 포맷팅
     function formatDate(isoDateString: string): string {
         const date = new Date(isoDateString);
@@ -53,13 +64,14 @@ const ReviewContent: React.FC<ReviewContentProps> = ({ id }) => {
         <ul className="review-card-container">
             {reviewData.map((review: any, idx: number) => (
                 <li className="review-card" key={idx}>
-                    <div className="review-contents">
+                    <div className={`review-contents ${toggleStates[idx] ? 'active' : ''}`} >
                         <p className="review-author">{review?.author} 님</p>
                         <p className="review-content">{review?.content}</p>
                         <p className="review-created">{formatDate(review?.created_at)}</p>
-                        <p className="review-url">{review?.url}</p>
                     </div>
-                    <div className="btn-more">more</div>
+                    <div className="btn-more" onClick={() => toggleReview(idx)}>
+                        {toggleStates[idx] ? "less" : "more"}
+                    </div>
                 </li>
             ))}
         </ul>

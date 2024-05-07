@@ -36,15 +36,19 @@
     .review-content {
       font-size: 14px;
       letter-spacing: -1px;
+      margin-bottom: 5px;
     }
 
     .review-created {
       font-size: 12px;
       color: #666;
+      text-align: right;
+      margin-bottom: 5px;
     }
 
     .review-url {
       font-size: 10px;
+      margin-bottom: 0;
       cursor: pointer;
     }
 
