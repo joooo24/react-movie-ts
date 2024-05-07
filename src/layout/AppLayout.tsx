@@ -1,5 +1,4 @@
-import React from "react";
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -7,11 +6,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./AppLayout.style.scss";
 import { Outlet } from "react-router-dom";
+import Footer from "./Footer/Footer";
 
-
-type Props = {}
-
-const AppLayout = (props: Props) => {
+const AppLayout:React.FC = () => {
 
     return (
         <>
@@ -46,6 +43,7 @@ const AppLayout = (props: Props) => {
                 </Container>
             </Navbar>
             <Outlet />
+            <Footer/>
         </>
     )
 }
