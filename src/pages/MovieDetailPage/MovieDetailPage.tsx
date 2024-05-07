@@ -7,8 +7,8 @@ import { ClipLoader } from "react-spinners";
 import { FaStar } from "react-icons/fa";
 import { ImYoutube } from "react-icons/im";
 import { HiHandThumbUp } from "react-icons/hi2";
-import RecommendMovie from "./components/RecommendMovie";
-import ReviewContent from "./components/ReviewContent";
+import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
+import ReviewContent from "./components/ReviewContent/ReviewContent";
 // import { MovieModal } from "../../common/MovieModal/MovieModal";
 
 const MovieDetailPage: React.FC = () => {
