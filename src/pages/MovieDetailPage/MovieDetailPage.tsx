@@ -7,9 +7,8 @@ import { ClipLoader } from "react-spinners";
 import { FaStar } from "react-icons/fa";
 import { ImYoutube } from "react-icons/im";
 import { HiHandThumbUp } from "react-icons/hi2";
-
-// import ReviewContent from "./components/ReviewContent/ReviewContent";
-// import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
+import RecommendMovie from "./components/RecommendMovie";
+import ReviewContent from "./components/ReviewContent";
 // import { MovieModal } from "../../common/MovieModal/MovieModal";
 
 const MovieDetailPage: React.FC = () => {
@@ -19,6 +18,9 @@ const MovieDetailPage: React.FC = () => {
 
     const { data: detailData, isLoading, isError, error } = useMovieDetailQuery(keyword);
     console.log("### detailData", detailData)
+
+    // 탭 액티브
+    const [activeTab, setActiveTab] = useState<number>(0);
 
     // 카드 이미지 URL 정의
     const posterPath = detailData?.poster_path
@@ -106,17 +108,17 @@ const MovieDetailPage: React.FC = () => {
                     <button
                         className="btn-trailer"
                     >
-                        Watch the trailer<ImYoutube />
+                        Watch the trailer <ImYoutube />
                     </button>
                 </div>
             </article>
-            {/* 탭메뉴 */}
-            {/* <ul className="tab-wrap">
-                <li onClick={() => setActiveTab(0)}>Review</li>
-                <li onClick={() => setActiveTab(1)}>Recommend</li>
-            </ul> */}
-            {/* {activeTab === 0 && <ReviewContent id={{ id }} />}
-            {activeTab === 1 && <RecommendMovie id={{ id }} />} */}
+            {/* 탭 메뉴 */}
+            <ul className="tab-wrap">
+                <li onClick={() => setActiveTab(0)} className={activeTab === 0 ? 'active' : ''} >Review</li>
+                <li onClick={() => setActiveTab(1)} className={activeTab === 1 ? 'active' : ''} >Recommend</li>
+            </ul>
+            {activeTab === 0 && <ReviewContent />}
+            {activeTab === 1 && <RecommendMovie />}
 
             {/* 모달 */}
             {/* <MovieModal
