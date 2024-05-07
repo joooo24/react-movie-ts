@@ -115,7 +115,8 @@
         align-items: center;
         justify-content: center;
         margin-right: 10px;
-        svg{
+
+        svg {
             margin-right: 3px;
         }
 
@@ -158,10 +159,12 @@
 
         font-size: 28px;
         padding: 0 40px 20px;
+        cursor: pointer;
 
         &.active,
         &:hover {
             font-weight: bold;
+            color: #ff143c;
             color: brown;
         }
     }
@@ -184,7 +187,6 @@
             div {
                 font-size: 12px;
             }
-
         }
 
     }
@@ -205,7 +207,6 @@
                 margin-right: 0;
             }
         }
-
 
     }
 

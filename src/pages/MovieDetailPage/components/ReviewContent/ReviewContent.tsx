@@ -51,7 +51,7 @@ const ReviewContent: React.FC<ReviewContentProps> = ({ id }) => {
 
     return (
         <ul className="review-card-container">
-            {reviewData ? (reviewData.map((review: any, idx: number) => (
+            {reviewData.map((review: any, idx: number) => (
                 <li className="review-card" key={idx}>
                     <div className="review-contents">
                         <p className="review-author">{review?.author} 님</p>
@@ -59,15 +59,9 @@ const ReviewContent: React.FC<ReviewContentProps> = ({ id }) => {
                         <p className="review-created">{formatDate(review?.created_at)}</p>
                         <p className="review-url">{review?.url}</p>
                     </div>
-                    <div className="btn-more"></div>
+                    <div className="btn-more">more</div>
                 </li>
-            ))) : (
-                <li className="review-card">
-                    <div className="review-contents">
-                        <p className="error-message">리뷰 데이터를 불러올 수 없습니다.</p>
-                    </div>
-                </li>
-            )}
+            ))}
         </ul>
     )
 }

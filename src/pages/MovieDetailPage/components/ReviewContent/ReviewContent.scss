@@ -7,7 +7,7 @@
 
   .review-card {
     width: 100%;
-    padding: 20px;
+    padding: 16px;
     background-color: #eee;
     border-radius: 1rem;
     position: relative;
@@ -29,11 +29,13 @@
 
     .review-author {
       font-size: 12px;
+      margin-bottom: 5px;
+      font-weight: 600;
     }
 
     .review-content {
       font-size: 14px;
-      letter-spacing: -.5px;
+      letter-spacing: -1px;
     }
 
     .review-created {
@@ -42,7 +44,7 @@
     }
 
     .review-url {
-      font-size: 12px;
+      font-size: 10px;
       cursor: pointer;
     }
 
@@ -50,10 +52,13 @@
       text-decoration: underline;
       cursor: pointer;
       color: blue;
+      font-size: 12px;
+      margin-top: 0px;
+      text-align: right;
+      letter-spacing: 0;
     }
   }
 }
-
 
 @media only screen and (max-width: 768px) {
 
