@@ -117,7 +117,7 @@ const MovieDetailPage: React.FC = () => {
                 <li onClick={() => setActiveTab(0)} className={activeTab === 0 ? 'active' : ''} >Review</li>
                 <li onClick={() => setActiveTab(1)} className={activeTab === 1 ? 'active' : ''} >Recommend</li>
             </ul>
-            {activeTab === 0 && <ReviewContent />}
+            {activeTab === 0 && <ReviewContent id={keyword} />}
             {activeTab === 1 && <RecommendMovie />}
 
             {/* 모달 */}
