@@ -1,0 +1,34 @@
+.modal {
+    background-color: rgba($color: #000000, $alpha: .7);
+}
+
+.modal-dialog {
+    position: absolute;
+    width: 100% !important;
+    max-width: 1024px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 16px !important;
+    margin: 0 !important;
+}
+
+.modal-content {
+    width: 80vw;
+    max-width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.modal-title {
+    font-size: 16px !important;
+}
+
+.youtube-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+@media (max-width: 768px) {}
