@@ -18,12 +18,13 @@
     }
 
     .review-contents {
-      height: 90px;
+      max-height: 90px;
       overflow: hidden;
       color: #181818;
 
       &.active {
         height: 100%;
+        max-height: unset;
       }
     }
 

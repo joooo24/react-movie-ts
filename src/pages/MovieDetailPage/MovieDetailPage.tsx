@@ -17,7 +17,12 @@ const MovieDetailPage: React.FC = () => {
     const keyword = params.id ?? "";
 
     const { data: detailData, isLoading, isError, error } = useMovieDetailQuery(keyword);
-    console.log("### detailData", detailData)
+
+    // 모달 상태 값
+    const [showModal, setShowModal] = useState(false);
+
+    // 모달 닫기 함수
+    const closeModal = () => setShowModal(false);
 
     // 탭 액티브
     const [activeTab, setActiveTab] = useState<number>(0);
@@ -104,7 +109,7 @@ const MovieDetailPage: React.FC = () => {
                             <p>{detailData.runtime}분</p>
                         </li>
                     </ul>
-                    <button className="btn-trailer">
+                    <button className="btn-trailer" onClick={() => setShowModal(true)}>
                         Watch the trailer <ImYoutube />
                     </button>
                 </div>
@@ -118,14 +123,7 @@ const MovieDetailPage: React.FC = () => {
             {activeTab === 1 && <RecommendMovie id={keyword} />}
 
             {/* 모달 */}
-            <MovieModal id={keyword} />
-            {/* <MovieModal
-                modalData={{
-                    closeModal: closeModal,
-                    id: id,
-                    showModal: showModal,
-                }}
-            /> */}
+            <MovieModal modalData={{ id: keyword, closeModal: closeModal, showModal: showModal }} />
         </section>
     )
 }
