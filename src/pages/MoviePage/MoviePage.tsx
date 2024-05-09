@@ -1,5 +1,5 @@
 // MoviePage 컴포넌트
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MoviePage.scss";
 import MovieCard from './../../common/MovieCard/MovieCard'
 import Filter from './components/Filter/Filter'
@@ -10,27 +10,39 @@ import { usePopularMoviesQuery } from '../../hooks/usePopularMovies';
 const MoviePage: React.FC = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [selectedSort, setSelectedSort] = useState('desc');
+    const [filteredData, setFilteredData] = useState<any[]>([]);
 
-    const { data: PopularData, isLoading, isError, error, refetch } = usePopularMoviesQuery();
+    const { data: PopularData, isLoading, isError, error } = usePopularMoviesQuery();
+
+    useEffect(() => {
+        if (PopularData) {
+            // 선택된 장르에 해당하는 데이터만 필터링
+            let filteredResults = PopularData.results.filter((movie: any) => {
+                // 선택된 장르가 없으면 모든 데이터를 반환
+                if (!selectedGenre) return true;
+                // 선택된 장르에 해당하는 데이터만 반환
+                return movie.genre === selectedGenre;
+            });
+
+            // 선택된 정렬 방식에 따라 결과 배열을 정렬
+            if (selectedSort === 'asc') {
+                filteredResults.sort((a: any, b: any) => a.title.localeCompare(b.title));
+            } else {
+                filteredResults.sort((a: any, b: any) => b.title.localeCompare(a.title));
+            }
+
+            // 필터링된 데이터를 상태에 설정
+            setFilteredData(filteredResults);
+        }
+    }, [PopularData, selectedGenre, selectedSort]);
 
     const handleSortChange = (selectedSort: string) => {
         setSelectedSort(selectedSort);
-        refetch(); // 정렬이 변경되면 새로운 데이터 가져오기
     };
 
     const handleGenreChange = (selectedGenre: string) => {
         setSelectedGenre(selectedGenre);
-        refetch(); // 장르가 변경되면 새로운 데이터 가져오기
     };
-
-    // 1. 정렬된 데이터를 렌더링하기 위해 PopularData.results를 복사하여 정렬
-    const sortedResults = [...PopularData?.results];
-    // 2. 선택된 정렬 방식에 따라 결과 배열을 정렬
-    if (selectedSort === 'asc') {
-        sortedResults.sort((a, b) => a.title.localeCompare(b.title));
-    } else {
-        sortedResults.sort((a, b) => b.title.localeCompare(a.title));
-    }
 
     if (isLoading) {
         return (
@@ -48,7 +60,7 @@ const MoviePage: React.FC = () => {
         <section className="movie-page">
             <div className="filter-container">
                 <div className="filter-total">
-                    총: {PopularData?.results.total_results}개
+                    총: {filteredData.length}개
                 </div>
                 <Filter
                     selectedSort={selectedSort}
@@ -58,8 +70,8 @@ const MoviePage: React.FC = () => {
                 />
             </div>
             <ul className="movie-list-container">
-                {sortedResults.length > 0 ? (
-                    sortedResults.map((movie: any, index: number) => (
+                {filteredData.length > 0 ? (
+                    filteredData.map((movie: any, index: number) => (
                         <li key={index}>
                             <MovieCard movie={movie} />
                         </li>
