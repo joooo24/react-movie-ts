@@ -1,4 +1,3 @@
-// MoviePage 컴포넌트
 import React, { useState, useEffect } from "react";
 import "./MoviePage.scss";
 import MovieCard from './../../common/MovieCard/MovieCard'

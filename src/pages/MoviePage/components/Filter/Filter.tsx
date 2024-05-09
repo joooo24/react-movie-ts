@@ -1,4 +1,3 @@
-// Filter 컴포넌트
 import React from "react";
 import "./Filter.scss";
 import { useMoviesGenreQuery } from "../../../../hooks/useMovieGenre";
