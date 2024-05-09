@@ -109,6 +109,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 0;
 
     li {
         display: flex;
@@ -165,7 +166,7 @@
         &:hover {
             font-weight: bold;
             color: #ff143c;
-            color: brown;
+            color: rgb(198, 0, 0);
         }
     }
 }
@@ -216,7 +217,7 @@
 
         li {
             font-size: 22px;
-            padding: 0 20px 10px;
+            padding: 0 20px 10px 0;
             font-size: 20px;
         }
     }

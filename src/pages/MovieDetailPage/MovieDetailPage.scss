@@ -73,7 +73,7 @@
             }
 
             .btn-trailer {
-                background-color: #ff143c;
+                background-color: rgb(198, 0, 0);
                 color: #f1f1f1;
                 border: none;
                 padding: 16px 10px;
@@ -86,7 +86,7 @@
                 }
 
                 &:hover {
-                    background-color: rgb(198, 0, 0);
+                    background-color: #ff143c;
                 }
             }
         }
