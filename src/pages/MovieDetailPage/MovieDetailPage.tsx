@@ -9,7 +9,7 @@ import { ImYoutube } from "react-icons/im";
 import { HiHandThumbUp } from "react-icons/hi2";
 import RecommendMovie from "./components/RecommendMovie/RecommendMovie";
 import ReviewContent from "./components/ReviewContent/ReviewContent";
-import MovieModal from "../../common/MovieModal/MovieModal";
+import MovieModal from './../../common/MovieModal/MovieModal';
 
 const MovieDetailPage: React.FC = () => {
 
@@ -104,10 +104,7 @@ const MovieDetailPage: React.FC = () => {
                             <p>{detailData.runtime}분</p>
                         </li>
                     </ul>
-
-                    <button
-                        className="btn-trailer"
-                    >
+                    <button className="btn-trailer">
                         Watch the trailer <ImYoutube />
                     </button>
                 </div>
@@ -121,7 +118,7 @@ const MovieDetailPage: React.FC = () => {
             {activeTab === 1 && <RecommendMovie id={keyword} />}
 
             {/* 모달 */}
-            <MovieModal id={keyword}/>
+            <MovieModal id={keyword} />
             {/* <MovieModal
                 modalData={{
                     closeModal: closeModal,
