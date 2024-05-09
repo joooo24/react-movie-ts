@@ -1,17 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import "./MoviePage.scss";
 import MovieCard from './../../common/MovieCard/MovieCard'
 import Filter from './components/Filter/Filter'
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { usePopularMoviesQuery } from '../../hooks/usePopularMovies';
-import "./MoviePage.scss";
-
 
 const MoviePage: React.FC = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [selectedSort, setSelectedSort] = useState('desc');
 
-    const { data: PopularData, isLoading, isError, error } = usePopularMoviesQuery();
+    const { data: PopularData, isLoading, isError, error, refetch } = usePopularMoviesQuery();
+
+
+    console.log("PopularData", PopularData)
+
+    const handleSortChange = (selectedSort: string) => {
+        setSelectedSort(selectedSort);
+        refetch(); // 정렬이 변경되면 새로운 데이터 가져오기
+    };
+
+    const handleGenreChange = (selectedGenre: string) => {
+        setSelectedGenre(selectedGenre);
+        refetch(); // 장르가 변경되면 새로운 데이터 가져오기
+    };
 
     if (isLoading) {
         return (
@@ -31,7 +43,12 @@ const MoviePage: React.FC = () => {
                 <div className="filter-total">
                     총: {PopularData?.results.total_results}개
                 </div>
-                <Filter selectedSort={selectedSort} selectedGenre={selectedGenre} />
+                <Filter
+                    selectedSort={selectedSort}
+                    selectedGenre={selectedGenre}
+                    onSortChange={handleSortChange}
+                    onGenreChange={handleGenreChange}
+                />
             </div>
             <ul className="movie-list-container">
                 {PopularData?.results.length > 0 ? (
@@ -45,7 +62,7 @@ const MoviePage: React.FC = () => {
                 )}
             </ul>
         </section>
-    )
-}
+    );
+};
 
-export default MoviePage
+export default MoviePage;
