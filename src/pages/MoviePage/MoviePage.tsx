@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./MoviePage.scss";
-import MovieCard from './../../common/MovieCard/MovieCard'
-import Filter from './components/Filter/Filter'
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
+import MovieCard from './../../common/MovieCard/MovieCard';
+import Filter from './components/Filter/Filter';
 import { usePopularMoviesQuery } from '../../hooks/usePopularMovies';
 import { useSearchParams } from "react-router-dom";
 import { useSearchKeywordQuery } from "../../hooks/useSearchKeyword";
+import "./MoviePage.scss";
 
 const MoviePage: React.FC = () => {
+    // 상태 설정
     const [selectedGenre, setSelectedGenre] = useState('');
     const [selectedSort, setSelectedSort] = useState('desc');
     const [filteredData, setFilteredData] = useState<any[]>([]);
@@ -17,71 +18,62 @@ const MoviePage: React.FC = () => {
     const [query, setQuery] = useSearchParams();
     const keyword = query.get("q") || "";
 
-    const { data: searchResultData, isLoading: searchLoading, isError: searchError, error: searchErrorMessage } = useSearchKeywordQuery({
-        keyword: keyword,
-        page: 1,
-    });
-    console.log("searchResultData", searchResultData);
-
-
-    // 인기 영화 데이터 가져오기
+    // 검색 결과 및 인기 영화 데이터 가져오기
+    const { data: searchResultData, isLoading: searchLoading, isError: searchError, error: searchErrorMessage } = useSearchKeywordQuery({ keyword: keyword, page: 1 });
     const { data: popularData, isLoading: popularLoading, isError: popularError, error: popularErrorMessage } = usePopularMoviesQuery();
 
-    // 첫 실행 시
+    // 검색 결과 및 인기 영화 데이터가 변경될 때마다 실행
     useEffect(() => {
-        if (keyword) {
-            setFilteredData(searchResultData?.results);
-        }
-        if (popularData) {
-            setFilteredData(popularData ?? []);
+        // 검색 결과가 있는 경우 해당 결과를 표시, 없는 경우 인기 영화 표시
+        if (keyword && searchResultData) {
+            setFilteredData(searchResultData.results);
+        } else if (popularData) {
+            setFilteredData(popularData.results ?? []);
         }
     }, [keyword, searchResultData, popularData]);
 
-    // 검색 && 필터/소팅 시
+    // 장르 변경에 대한 useEffect
     useEffect(() => {
-        // 필터링된 결과를 저장할 변수
-        let filteredResults = popularData?.results;
-
-        // 선택된 장르에 해당하는 데이터만 필터링
+        // 장르가 선택된 경우에만 필터링 및 상태 업데이트
         if (selectedGenre) {
-            filteredResults = filteredResults.filter((movie: any) => {
-                console.log("filteredResults selectedGenre 장르", selectedGenre)
-                console.log("movie.genre_ids.includes(selectedGenre)", movie.genre_ids.includes(selectedGenre))
-                return movie.genre_ids.includes(selectedGenre);
-            });
-            console.log("filteredResults", filteredResults)
-        }
-
-        // 선택된 정렬 방식에 따라 결과 배열을 정렬
-        if (selectedSort === 'asc') {
-            filteredResults.sort((a: any, b: any) => a.title.localeCompare(b.title));
+            const filteredResults = popularData?.results.filter((movie: any) => movie.genre_ids.includes(selectedGenre));
+            setFilteredData(filteredResults || []); // 필터링된 데이터가 없으면 빈 배열을 설정
         } else {
-            filteredResults.sort((a: any, b: any) => b.title.localeCompare(a.title));
+            // 장르가 선택되지 않은 경우에는 전체 데이터를 그대로 사용
+            setFilteredData(popularData?.results || []);
         }
-        // 필터링된 데이터를 상태에 설정
-        setFilteredData(filteredResults);
+    }, [popularData, selectedGenre]);
 
-    }, [popularData, selectedGenre, selectedSort]);
-
-    // useEffect(() => {
-    //     // 쿼리 파라미터 변경 시 페이지를 1로 설정
-    //     setQuery("page");
-    // }, [setQuery]);
-
+    // 정렬 변경에 대한 useEffect
     useEffect(() => {
-        // 페이지 로드 시 장르와 정렬 기준을 초기화
+        // 정렬 방식에 따라 결과 배열을 복제하여 정렬하고 상태를 업데이트
+        const sortedResults = [...filteredData].sort((a: any, b: any) => {
+            if (selectedSort === 'asc') {
+                return a.title.localeCompare(b.title);
+            } else {
+                return b.title.localeCompare(a.title);
+            }
+        });
+        setFilteredData(sortedResults);
+    }, [selectedSort, filteredData]);
+
+    // 페이지 로드 시 장르와 정렬 기준을 초기화하는 useEffect
+    useEffect(() => {
         setSelectedGenre('');
         setSelectedSort('desc');
     }, [keyword]);
 
+    // 정렬 방식 변경 핸들러
     const handleSortChange = (selectedSort: string) => {
         setSelectedSort(selectedSort);
     };
 
+    // 장르 변경 핸들러
     const handleGenreChange = (selectedGenre: string) => {
         setSelectedGenre(selectedGenre);
     };
 
+    // 로딩 중인 경우 로딩 스피너 표시
     if (popularLoading || searchLoading) {
         return (
             <div className="loading-container">
@@ -90,10 +82,12 @@ const MoviePage: React.FC = () => {
         );
     }
 
+    // 오류가 있는 경우 오류 알림 표시
     if (popularError || searchError) {
-        return <Alert variant="danger">{popularErrorMessage || searchErrorMessage ? "인기 영화가 없습니다" : "검색하신 영화가 없습니다"}</Alert>;
+        return <Alert variant="danger">{popularErrorMessage || searchErrorMessage ? popularErrorMessage?.message : ""}</Alert>;
     }
 
+    // 영화 목록을 표시
     return (
         <section className="movie-page">
             <div className="filter-container">
@@ -116,7 +110,7 @@ const MoviePage: React.FC = () => {
                     ))
                 ) : (
                     <React.Fragment>
-                        <div className="no-content">해당하는 영화가 없습니다.</div>
+                        <div className="no-content">검색하신 영화가 없습니다.</div>
                     </React.Fragment>
                 )}
             </ul>
