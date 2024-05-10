@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import MovieCard from './../../common/MovieCard/MovieCard';
@@ -13,6 +13,7 @@ const MoviePage: React.FC = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [selectedSort, setSelectedSort] = useState('desc');
     const [filteredData, setFilteredData] = useState<any[]>([]);
+    const [searchData, setSearchData] = useState<any[]>([]);
 
     // 검색 결과 데이터 가져오기
     // eslint-disable-next-line
@@ -23,27 +24,31 @@ const MoviePage: React.FC = () => {
     const { data: searchResultData, isLoading: searchLoading, isError: searchError, error: searchErrorMessage } = useSearchKeywordQuery({ keyword: keyword, page: 1 });
     const { data: popularData, isLoading: popularLoading, isError: popularError, error: popularErrorMessage } = usePopularMoviesQuery();
 
+    // 장르 변경에 대한 filterData 업데이트
+    const filterGenre = useCallback((data: any[]) => {
+        const filterData = data.filter((movie: any) => {
+            if (!selectedGenre) return true; // 선택된 장르가 없는 경우 모든 영화를 보여줍니다.
+            return movie.genre_ids.includes(selectedGenre);
+        });
+        setFilteredData(filterData);
+    }, [selectedGenre]);
+
     // 검색 결과 및 인기 영화 데이터가 변경될 때마다 실행
     useEffect(() => {
         // 검색 결과가 있는 경우 해당 결과를 표시, 없는 경우 인기 영화 표시
         if (keyword && searchResultData) {
-            setFilteredData(searchResultData.results);
+            setSearchData(searchResultData.results);
+            filterGenre(searchResultData.results);
         } else if (popularData) {
-            setFilteredData(popularData.results ?? []);
+            setSearchData(popularData.results ?? []);
+            filterGenre(popularData.results ?? []);
         }
-    }, [keyword, searchResultData, popularData]);
+    }, [keyword, searchResultData, popularData, filterGenre]);
 
     // 장르 변경에 대한 useEffect
     useEffect(() => {
-        // 장르가 선택된 경우에만 필터링 및 상태 업데이트
-        if (selectedGenre && popularData) {
-            const filteredResults = popularData.results.filter((movie: any) => movie.genre_ids.includes(selectedGenre));
-            setFilteredData(filteredResults);
-        } else if (!selectedGenre && popularData) {
-            // 장르가 선택되지 않은 경우에는 전체 데이터를 그대로 사용
-            setFilteredData(popularData.results || []);
-        }
-    }, [popularData, selectedGenre]);
+        filterGenre(searchData);
+    }, [selectedGenre, searchData, filterGenre]);
 
     // 정렬 변경에 대한 useEffect
     useEffect(() => {
@@ -57,7 +62,6 @@ const MoviePage: React.FC = () => {
         });
         setFilteredData(sortedResults);
     }, [selectedSort, filteredData]);
-
 
     // 페이지 로드 시 장르와 정렬 기준을 초기화하는 useEffect
     useEffect(() => {
