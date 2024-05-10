@@ -1,3 +1,39 @@
 footer {
     background-color: #181818;
 }
+
+.footer-menu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.footer-menu>div {
+    width: 16.666%;
+}
+
+.footer-menu>div h3 {
+    margin-bottom: 16px;
+    font-size: 18px;
+}
+
+.footer-menu>div li {
+    line-height: 1.9;
+    font-size: 14px;
+}
+
+.footer-menu>div li a {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer-right {
+    margin-top: 50px;
+    border-top: 1px solid #d9d9d9;
+    padding-top: 50px;
+    text-align: center;
+    font-style: normal;
+    line-height: 1.6em;
+    color: #666;
+    font-size: 14px;
+}
