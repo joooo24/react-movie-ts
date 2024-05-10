@@ -10,9 +10,7 @@ import Footer from "./Footer/Footer";
 
 const AppLayout: React.FC = () => {
     const navigate = useNavigate();
-
     const [keyword, setKeyword] = useState("");
-    console.log("keyword", keyword)
 
     const searchByKeyword = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

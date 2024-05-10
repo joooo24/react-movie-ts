@@ -5,11 +5,25 @@ import Filter from './components/Filter/Filter'
 import { Alert } from "react-bootstrap";
 import { ClipLoader } from "react-spinners";
 import { usePopularMoviesQuery } from '../../hooks/usePopularMovies';
+import { useSearchParams } from "react-router-dom";
+import { useSearchKeywordQuery } from "../../hooks/useSearchKeyword";
 
 const MoviePage: React.FC = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [selectedSort, setSelectedSort] = useState('desc');
     const [filteredData, setFilteredData] = useState<any[]>([]);
+
+    // 쿼리 값 가져오기
+    const [query, setQuery] = useSearchParams();
+    const keyword = query.get("q");
+    console.log("url에서 가져온 키워드", keyword);
+
+    // 쿼리 값에 대한 데이터 가져오기
+    const { data: keywordData, isLoading: keywordDataIsLoading, isError: keywordDataIsError, error: keywordDataError } = useSearchKeywordQuery({
+        keyword: keyword || "",
+        page: 1,
+    });
+    console.log("keywordData", keywordData);
 
     const { data: PopularData, isLoading, isError, error } = usePopularMoviesQuery();
 
@@ -43,7 +57,7 @@ const MoviePage: React.FC = () => {
         setSelectedGenre(selectedGenre);
     };
 
-    if (isLoading) {
+    if (isLoading || keywordDataIsLoading) {
         return (
             <div className="loading-container">
                 <ClipLoader color="#f86c6b" size={200} loading={isLoading} />
@@ -51,8 +65,12 @@ const MoviePage: React.FC = () => {
         );
     }
 
-    if (isError) {
-        return <Alert variant="danger">{error.message}</Alert>;
+    if (isError || keywordDataIsError) {
+        return (
+            <Alert variant="danger">
+                {error ? error.message : keywordDataError?.message}
+            </Alert>
+        );
     }
 
     return (
