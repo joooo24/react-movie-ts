@@ -33,17 +33,31 @@ const MoviePage: React.FC = () => {
         setFilteredData(filterData);
     }, [selectedGenre]);
 
+    // 정렬 변경에 대한 filterData 업데이트
+    const sortData = useCallback((data: any[]) => {
+        const sortedData = [...data].sort((a: any, b: any) => {
+            if (selectedSort === 'asc') {
+                return a.title.localeCompare(b.title);
+            } else {
+                return b.title.localeCompare(a.title);
+            }
+        });
+        setFilteredData(sortedData);
+    }, [selectedSort]);
+
     // 검색 결과 및 인기 영화 데이터가 변경될 때마다 실행
     useEffect(() => {
         // 검색 결과가 있는 경우 해당 결과를 표시, 없는 경우 인기 영화 표시
         if (keyword && searchResultData) {
             setSearchData(searchResultData.results);
             filterGenre(searchResultData.results);
+            sortData(searchResultData.results);
         } else if (popularData) {
             setSearchData(popularData.results ?? []);
             filterGenre(popularData.results ?? []);
+            sortData(popularData.results ?? []);
         }
-    }, [keyword, searchResultData, popularData, filterGenre]);
+    }, [keyword, searchResultData, popularData, filterGenre, sortData]);
 
     // 장르 변경에 대한 useEffect
     useEffect(() => {
@@ -52,16 +66,8 @@ const MoviePage: React.FC = () => {
 
     // 정렬 변경에 대한 useEffect
     useEffect(() => {
-        // 정렬 방식에 따라 결과 배열을 복제하여 정렬하고 상태를 업데이트
-        const sortedResults = [...filteredData].sort((a: any, b: any) => {
-            if (selectedSort === 'asc') {
-                return a.title.localeCompare(b.title);
-            } else {
-                return b.title.localeCompare(a.title);
-            }
-        });
-        setFilteredData(sortedResults);
-    }, [selectedSort, filteredData]);
+        sortData(filteredData);
+    }, [selectedSort, filteredData, sortData]);
 
     // 페이지 로드 시 장르와 정렬 기준을 초기화하는 useEffect
     useEffect(() => {
