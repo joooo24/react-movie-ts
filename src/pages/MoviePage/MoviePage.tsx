@@ -50,14 +50,12 @@ const MoviePage: React.FC = () => {
         // 검색 결과가 있는 경우 해당 결과를 표시, 없는 경우 인기 영화 표시
         if (keyword && searchResultData) {
             setSearchData(searchResultData.results);
-            filterGenre(searchResultData.results);
             sortData(searchResultData.results);
         } else if (popularData) {
             setSearchData(popularData.results ?? []);
-            filterGenre(popularData.results ?? []);
             sortData(popularData.results ?? []);
         }
-    }, [keyword, searchResultData, popularData, filterGenre, sortData]);
+    }, [keyword, searchResultData, popularData, sortData]);
 
     // 장르 변경에 대한 useEffect
     useEffect(() => {
