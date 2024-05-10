@@ -152,6 +152,7 @@ const MoviePage: React.FC = () => {
                 containerClassName="pagination"
                 activeClassName="active"
                 renderOnZeroPageCount={null}
+                forcePage={page - 1}
             />
         </section>
     );
