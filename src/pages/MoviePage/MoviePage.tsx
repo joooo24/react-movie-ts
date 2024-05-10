@@ -6,6 +6,7 @@ import Filter from './components/Filter/Filter';
 import { usePopularMoviesQuery } from '../../hooks/usePopularMovies';
 import { useSearchParams } from "react-router-dom";
 import { useSearchKeywordQuery } from "../../hooks/useSearchKeyword";
+import ReactPaginate from "react-paginate";
 import "./MoviePage.scss";
 
 const MoviePage: React.FC = () => {
@@ -14,6 +15,8 @@ const MoviePage: React.FC = () => {
     const [selectedSort, setSelectedSort] = useState('desc');
     const [filteredData, setFilteredData] = useState<any[]>([]);
     const [searchData, setSearchData] = useState<any[]>([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
 
     // 검색 결과 데이터 가져오기
     // eslint-disable-next-line
@@ -21,7 +24,7 @@ const MoviePage: React.FC = () => {
     const keyword = query.get("q") || "";
 
     // 검색 결과 및 인기 영화 데이터 가져오기
-    const { data: searchResultData, isLoading: searchLoading, isError: searchError, error: searchErrorMessage } = useSearchKeywordQuery({ keyword: keyword, page: 1 });
+    const { data: searchResultData, isLoading: searchLoading, isError: searchError, error: searchErrorMessage } = useSearchKeywordQuery({ keyword: keyword, page: page });
     const { data: popularData, isLoading: popularLoading, isError: popularError, error: popularErrorMessage } = usePopularMoviesQuery();
 
     // 장르 변경에 대한 filterData 업데이트
@@ -50,9 +53,11 @@ const MoviePage: React.FC = () => {
         // 검색 결과가 있는 경우 해당 결과를 표시, 없는 경우 인기 영화 표시
         if (keyword && searchResultData) {
             setSearchData(searchResultData.results);
+            setTotalPages(searchResultData.total_pages);
             sortData(searchResultData.results);
         } else if (popularData) {
             setSearchData(popularData.results ?? []);
+            setTotalPages(popularData.total_pages);
             sortData(popularData.results ?? []);
         }
     }, [keyword, searchResultData, popularData, sortData]);
@@ -72,6 +77,11 @@ const MoviePage: React.FC = () => {
         setSelectedGenre('');
         setSelectedSort('desc');
     }, [keyword]);
+
+    // 페이지 변경 핸들러
+    const handlePageChange = ({ selected }: { selected: number }) => {
+        setPage(selected + 1);
+    };
 
     // 정렬 방식 변경 핸들러
     const handleSortChange = (selectedSort: string) => {
@@ -97,12 +107,11 @@ const MoviePage: React.FC = () => {
         return <Alert variant="danger">{popularErrorMessage || searchErrorMessage ? popularErrorMessage?.message : ""}</Alert>;
     }
 
-    // 영화 목록을 표시
     return (
         <section className="movie-page">
             <div className="filter-container">
                 <div className="filter-total">
-                    총: {filteredData.length}개
+                    총: {filteredData?.length}개
                 </div>
                 <Filter
                     selectedSort={selectedSort}
@@ -112,8 +121,8 @@ const MoviePage: React.FC = () => {
                 />
             </div>
             <ul className="movie-list-container">
-                {filteredData.length > 0 ? (
-                    filteredData.map((movie: any, index: number) => (
+                {filteredData?.length > 0 ? (
+                    filteredData?.map((movie: any, index: number) => (
                         <li key={index}>
                             <MovieCard movie={movie} />
                         </li>
@@ -124,6 +133,26 @@ const MoviePage: React.FC = () => {
                     </React.Fragment>
                 )}
             </ul>
+            <ReactPaginate
+                nextLabel=">"
+                onPageChange={handlePageChange}
+                pageRangeDisplayed={5}
+                marginPagesDisplayed={5}
+                pageCount={totalPages}
+                previousLabel="<"
+                pageClassName="r-page-item"
+                pageLinkClassName="r-page-link"
+                previousClassName="r-page-item"
+                previousLinkClassName="r-page-link"
+                nextClassName="r-page-item"
+                nextLinkClassName="r-page-link"
+                breakLabel="..."
+                breakClassName="r-page-item"
+                breakLinkClassName="r-page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+                renderOnZeroPageCount={null}
+            />
         </section>
     );
 };
