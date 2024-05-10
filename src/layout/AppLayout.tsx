@@ -5,10 +5,22 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./AppLayout.style.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer/Footer";
 
-const AppLayout:React.FC = () => {
+const AppLayout: React.FC = () => {
+    const navigate = useNavigate();
+
+    const [keyword, setKeyword] = useState("");
+    console.log("keyword", keyword)
+
+    const searchByKeyword = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        // 검색어(keyword)를 포함한 URL로 페이지 이동
+        navigate(`/movies?q=${keyword}`);
+        setKeyword("");
+    }
 
     return (
         <>
@@ -27,12 +39,16 @@ const AppLayout:React.FC = () => {
                             <Nav.Link href="/movies">Movies</Nav.Link>
                         </Nav>
                         {/* 검색 폼 */}
-                        <Form className="d-flex">
+                        <Form className="d-flex" onSubmit={searchByKeyword}>
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
                                 className="me-2"
                                 aria-label="Search"
+                                value={keyword}
+                                onChange={(event) => {
+                                    setKeyword(event.target.value)
+                                }}
                             />
                             {/* 검색 버튼 */}
                             <Button variant="outline-success" type="submit">
@@ -43,7 +59,7 @@ const AppLayout:React.FC = () => {
                 </Container>
             </Navbar>
             <Outlet />
-            <Footer/>
+            <Footer />
         </>
     )
 }
