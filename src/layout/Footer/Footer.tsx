@@ -9,33 +9,13 @@ const Footer: React.FC = () => {
                 <div className="footer-inner">
                     <div className="footer-menu">
                         <div>
-                            <h3>향수 사이트</h3>
+                            <h3>ranguage</h3>
                             <ul>
-                                <li><a href="#">소개하기</a></li>
-                                <li><a href="#">향수 이미지</a></li>
-                                <li><a href="#">향수 지속시간</a></li>
-                                <li><a href="#">나만의 향수</a></li>
-                                <li><a href="#">커스텀 방법</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>향수 사이트</h3>
-                            <ul>
-                                <li><a href="#">소개하기</a></li>
-                                <li><a href="#">향수 이미지</a></li>
-                                <li><a href="#">향수 지속시간</a></li>
-                                <li><a href="#">나만의 향수</a></li>
-                                <li><a href="#">커스텀 방법</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>향수 사이트</h3>
-                            <ul>
-                                <li><a href="#">소개하기</a></li>
-                                <li><a href="#">향수 이미지</a></li>
-                                <li><a href="#">향수 지속시간</a></li>
-                                <li><a href="#">나만의 향수</a></li>
-                                <li><a href="#">커스텀 방법</a></li>
+                                <li><a href="#">React.js</a></li>
+                                <li><a href="#">Typescript</a></li>
+                                <li><a href="#">Node.js</a></li>
+                                <li><a href="#">MongoDB</a></li>
+                                <li><a href="#">Express</a></li>
                             </ul>
                         </div>
                         <div>
@@ -49,13 +29,43 @@ const Footer: React.FC = () => {
                             </ul>
                         </div>
                         <div>
-                            <h3>향수 사이트</h3>
+                            <h3>ranguage</h3>
                             <ul>
-                                <li><a href="#">소개하기</a></li>
-                                <li><a href="#">향수 이미지</a></li>
-                                <li><a href="#">향수 지속시간</a></li>
-                                <li><a href="#">나만의 향수</a></li>
-                                <li><a href="#">커스텀 방법</a></li>
+                                <li><a href="#">React.js</a></li>
+                                <li><a href="#">Typescript</a></li>
+                                <li><a href="#">Node.js</a></li>
+                                <li><a href="#">MongoDB</a></li>
+                                <li><a href="#">Express</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>ranguage</h3>
+                            <ul>
+                                <li><a href="#">React.js</a></li>
+                                <li><a href="#">Typescript</a></li>
+                                <li><a href="#">Node.js</a></li>
+                                <li><a href="#">MongoDB</a></li>
+                                <li><a href="#">Express</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>ranguage</h3>
+                            <ul>
+                                <li><a href="#">React.js</a></li>
+                                <li><a href="#">Typescript</a></li>
+                                <li><a href="#">Node.js</a></li>
+                                <li><a href="#">MongoDB</a></li>
+                                <li><a href="#">Express</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3>More Project</h3>
+                            <ul>
+                                <li><a href="#">1111</a></li>
+                                <li><a href="#">2222</a></li>
+                                <li><a href="#">3333</a></li>
+                                <li><a href="#">4444</a></li>
+                                <li><a href="#">5555</a></li>
                             </ul>
                         </div>
                     </div>
