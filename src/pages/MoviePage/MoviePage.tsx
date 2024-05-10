@@ -15,6 +15,7 @@ const MoviePage: React.FC = () => {
     const [filteredData, setFilteredData] = useState<any[]>([]);
 
     // 검색 결과 데이터 가져오기
+    // eslint-disable-next-line
     const [query, setQuery] = useSearchParams();
     const keyword = query.get("q") || "";
 
@@ -35,12 +36,12 @@ const MoviePage: React.FC = () => {
     // 장르 변경에 대한 useEffect
     useEffect(() => {
         // 장르가 선택된 경우에만 필터링 및 상태 업데이트
-        if (selectedGenre) {
-            const filteredResults = popularData?.results.filter((movie: any) => movie.genre_ids.includes(selectedGenre));
-            setFilteredData(filteredResults || []); // 필터링된 데이터가 없으면 빈 배열을 설정
-        } else {
+        if (selectedGenre && popularData) {
+            const filteredResults = popularData.results.filter((movie: any) => movie.genre_ids.includes(selectedGenre));
+            setFilteredData(filteredResults);
+        } else if (!selectedGenre && popularData) {
             // 장르가 선택되지 않은 경우에는 전체 데이터를 그대로 사용
-            setFilteredData(popularData?.results || []);
+            setFilteredData(popularData.results || []);
         }
     }, [popularData, selectedGenre]);
 
@@ -56,6 +57,7 @@ const MoviePage: React.FC = () => {
         });
         setFilteredData(sortedResults);
     }, [selectedSort, filteredData]);
+
 
     // 페이지 로드 시 장르와 정렬 기준을 초기화하는 useEffect
     useEffect(() => {
