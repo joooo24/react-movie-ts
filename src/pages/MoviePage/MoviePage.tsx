@@ -137,8 +137,8 @@ const MoviePage: React.FC = () => {
                 nextLabel=">"
                 onPageChange={handlePageChange}
                 pageRangeDisplayed={5}
-                marginPagesDisplayed={5}
-                pageCount={totalPages}
+                marginPagesDisplayed={1}
+                pageCount={Math.min(totalPages, 200)}
                 previousLabel="<"
                 pageClassName="r-page-item"
                 pageLinkClassName="r-page-link"
