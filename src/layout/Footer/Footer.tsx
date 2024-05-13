@@ -36,10 +36,12 @@ const Footer: React.FC = () => {
                         <li>JIRA</li>
                     </ul>
                 </div>
-
             </div>
             <address className="footer-right">
-                주현정 MovieApp Portfolio. React TypeScript.<br />2024 All Right Reserved
+                <p><span>E. </span><span>bluee25@naver.com</span></p>
+                <p><span>HP.</span><span>010-4134-3088</span></p>
+                <p>주현정 MovieApp Portfolio. React TypeScript.</p>
+                <p>2024 All Right Reserved</p>
             </address>
         </footer>
     );
