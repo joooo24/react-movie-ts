@@ -86,7 +86,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
                     </li>
                     <li>{movie.adult ? <div className="adult">18</div> : <div className="all">ALL</div>}</li>
                 </ul>
-                <div>{movie.release_date}</div>
+                <div className="release-date">{movie.release_date}</div>
             </div>
         </div>
     );

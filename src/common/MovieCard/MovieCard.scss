@@ -70,6 +70,10 @@
             font-size: 12px;
         }
 
+        .release-date {
+            margin-top: 10px;
+        }
+
         &:hover {
             opacity: 1;
         }
@@ -115,6 +119,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 10px;
         margin-right: 10px;
 
         svg {
@@ -219,6 +224,19 @@
             font-size: 22px;
             padding: 0 20px 10px 0;
             font-size: 20px;
+        }
+    }
+
+    .tag-wrap {
+        li {
+            font-size: 12px;
+            margin: 6px 6px 0 0;
+
+            .adult,
+            .all {
+                width: 22px;
+                height: 22px;
+            }
         }
     }
 }

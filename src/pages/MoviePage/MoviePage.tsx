@@ -123,7 +123,7 @@ const MoviePage: React.FC = () => {
             <ul className="movie-list-container">
                 {filteredData?.length > 0 ? (
                     filteredData?.map((movie: any, index: number) => (
-                        <li key={index}>
+                        <li key={index} className="movie-list-item">
                             <MovieCard movie={movie} />
                         </li>
                     ))

@@ -12,7 +12,7 @@
     padding: 0 20px !important;
     margin-bottom: 0rem;
 
-    li {
+    .movie-list-item {
         width: calc((100% - 40px) / 3);
         margin-right: 20px;
         margin-bottom: 20px;
@@ -72,7 +72,7 @@
 @media only screen and (max-width: 768px) {
 
     .movie-list-container {
-        li {
+        .movie-list-item {
             width: calc((100% - 20px) / 2);
             margin-right: 20px;
             margin-bottom: 20px;
