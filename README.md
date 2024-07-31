@@ -13,6 +13,14 @@
 ### **GitHub Link**
 
 ---
+<div align="center">
+
+| **주현정** |
+| :------: |
+| [<img src="https://avatars.githubusercontent.com/u/61533589?s=64&v=4" height=150 width=150> <br/>](https://github.com/joooo24) |
+| Scrum Master |
+
+</div>
 
 - [Repository](https://github.com/joooo24/react-movie-ts)
 
